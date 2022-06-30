@@ -1,3 +1,14 @@
+# Link to my repo
+https://github.com/rockecore/build-ml-pipeline-for-short-term-rental-prices
+
+# Notes on assignment
+I have spent weeks troubleshooting this assignment. Every step of the way was a struggle.
+I'm submitting it now incomplete because I need to move on to the next section. 
+Each time I submitted a question in the thread, it took several days for a response. 
+That response often came back with a question, which I would answer, and then wait another several days for a response.
+This service is way too expensive for me to just sit and wait every time I get to a project or exercise.
+Don't worry about grading anything here. I just want to be done with this so I can stop paying you.
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
