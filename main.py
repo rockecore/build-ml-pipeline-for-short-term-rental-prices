@@ -23,6 +23,15 @@ _steps = [
 # This automatically reads in the configuration
 @hydra.main(config_name='config')
 def go(config: DictConfig):
+    
+    """
+    conda activate nyc_airbnb_dev
+    
+    First step to download data:
+        mlflow run . -P steps=download
+        
+    
+    """
 
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
@@ -37,11 +46,11 @@ def go(config: DictConfig):
 
         if "download" in active_steps:
             # Download file and load in W&B
-            root_path = config['main']['components_repository']
+            # root_path = config['main']['components_repository']
             # root_path = r"C:\Users\rbarker\OneDrive - Imdex Limited\Documents\Python Scripts\udacity_training\nyc_rental_prices_final_project\build-ml-pipeline-for-short-term-rental-prices\components"
             _ = mlflow.run(
                 # f"{config['main']['components_repository']}/get_data/data",
-                os.path.join(root_path, 'get_data', 'data'),
+                os.path.join(config['main']['components_repository'], 'get_data'),
                 "main",
                 parameters={
                     "sample": config["etl"]["sample"],
