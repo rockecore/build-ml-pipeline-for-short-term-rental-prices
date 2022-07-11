@@ -7,7 +7,9 @@ import logging
 import os
 
 import wandb
-
+# import sys
+# sys.path.append("wandb_utils")
+print("I am running this file")
 from wandb_utils.log_artifact import log_artifact
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")

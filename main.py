@@ -40,7 +40,7 @@ def go(config: DictConfig):
     # Steps to execute
     steps_par = config['main']['steps']
     active_steps = steps_par.split(",") if steps_par != "all" else _steps
-
+    print("main.py file is good") 
     # Move to a temporary directory
     with tempfile.TemporaryDirectory() as tmp_dir:
 
@@ -51,7 +51,8 @@ def go(config: DictConfig):
             _ = mlflow.run(
                 # f"{config['main']['components_repository']}/get_data/data",
                 os.path.join(config['main']['components_repository'], 'get_data'),
-                "main",
+                entry_point="main",
+                version="main",
                 parameters={
                     "sample": config["etl"]["sample"],
                     "artifact_name": "sample.csv",
