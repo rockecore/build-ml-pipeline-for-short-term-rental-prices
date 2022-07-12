@@ -30,6 +30,8 @@ def go(config: DictConfig):
     First step to download data:
         mlflow run . -P steps=download
         
+    Run data cleaning
+        mlflow run . -P steps=basic_cleaning
     
     """
 
