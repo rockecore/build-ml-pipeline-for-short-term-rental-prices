@@ -31,7 +31,7 @@ def go(config: DictConfig):
         mlflow run . -P steps=download
         
     Run data cleaning
-        mlflow run . -P steps=basic_cleaning
+        
     
     """
 
@@ -47,6 +47,9 @@ def go(config: DictConfig):
     with tempfile.TemporaryDirectory() as tmp_dir:
 
         if "download" in active_steps:
+            """
+            mlflow run . -P steps=basic_cleaning
+            """
             # Download file and load in W&B
             # root_path = config['main']['components_repository']
             # root_path = r"C:\Users\rbarker\OneDrive - Imdex Limited\Documents\Python Scripts\udacity_training\nyc_rental_prices_final_project\build-ml-pipeline-for-short-term-rental-prices\components"
@@ -66,7 +69,7 @@ def go(config: DictConfig):
         if "basic_cleaning" in active_steps:
             _ = mlflow.run(os.path.join(hydra.utils.get_original_cwd(),
                                         "src", "basic_cleaning"),
-                           "main",
+                           entry_point="main",
                            parameters = {"input_artifact": "sample.csv:latest",
                                          "output_artifact": "clean_sample.csv",
                                          "output_type": "clean_sample",
@@ -75,9 +78,13 @@ def go(config: DictConfig):
                                          "max_price": config['etl']['max_price']})
 
         if "data_check" in active_steps:
+            """
+            mlflow run . -P steps="data_check"
+            """
+            
             _ = mlflow.run(os.path.join(hydra.utils.get_original_cwd(),
                                         "src", "data_check"),
-                           "main",
+                           entry_point="main",
                            parameters = {"csv": "clean_sample.csv:latest",
                                          "ref": "clean_sample.csv:latest",
                                          "kl_threshold": config["data_check"]["kl_threshold"],
@@ -87,7 +94,7 @@ def go(config: DictConfig):
         if "data_split" in active_steps:
             _ = mlflow.run(os.path.join(config['main']['components_repository'],
                                         "train_val_test_split"),
-                           "main",
+                           entry_point="main",
                            parameters = {"input": "clean_sample.csv:latest",
                                          "test_size": config["modeling"]["test_size"],
                                          "random_seed": config["modeling"]["random_seed"],
@@ -102,7 +109,7 @@ def go(config: DictConfig):
 
             _ = mlflow.run(os.path.join(hydra.utils.get_original_cwd(),
                                         "src", "train_random_forest"),
-                           "main",
+                           entry_point="main",
                            parameters = {"trainval_artifact": "trainval_data.csv:latest",
                                          "val_size": config["modeling"]["val_size"],
                                          "random_seed": config["modeling"]["random_seed"],
@@ -115,7 +122,7 @@ def go(config: DictConfig):
 
             _ = mlflow.run(os.path.join(config['main']['components_repository'],
                                         "test_regression_model"),
-                           "main",
+                           entry_point="main",
                            parameters = {"mlflow_model": "random_forest_export:prod",
                                          "test_dataset": "test_data.csv:latest"})
 
