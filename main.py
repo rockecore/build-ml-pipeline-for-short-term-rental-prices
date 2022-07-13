@@ -95,6 +95,7 @@ def go(config: DictConfig):
             _ = mlflow.run(os.path.join(config['main']['components_repository'],
                                         "train_val_test_split"),
                            entry_point="main",
+                           version="main",
                            parameters = {"input": "clean_sample.csv:latest",
                                          "test_size": config["modeling"]["test_size"],
                                          "random_seed": config["modeling"]["random_seed"],
