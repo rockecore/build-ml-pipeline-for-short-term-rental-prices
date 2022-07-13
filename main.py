@@ -102,6 +102,9 @@ def go(config: DictConfig):
                                          "stratify": config["modeling"]["stratify_by"]})
 
         if "train_random_forest" in active_steps:
+            """
+            mlflow run . 
+            """
 
             # NOTE: we need to serialize the random forest configuration into JSON
             rf_config = os.path.abspath("rf_config.json")
