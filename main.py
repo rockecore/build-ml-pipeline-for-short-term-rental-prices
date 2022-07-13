@@ -103,7 +103,7 @@ def go(config: DictConfig):
 
         if "train_random_forest" in active_steps:
             """
-            mlflow run . 
+            mlflow run . -P steps=train_random_forest -P hydra_options="modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 modeling.max_tfidf_features=10,15,30 -m"
             """
 
             # NOTE: we need to serialize the random forest configuration into JSON
@@ -123,10 +123,13 @@ def go(config: DictConfig):
                                          "output_artifact": "random_forest_export"})
 
         if "test_regression_model" in active_steps:
-
+            """
+            mlflow run . -P steps=test_regression_model
+            """
             _ = mlflow.run(os.path.join(config['main']['components_repository'],
                                         "test_regression_model"),
                            entry_point="main",
+                           version="main",
                            parameters = {"mlflow_model": "random_forest_export:prod",
                                          "test_dataset": "test_data.csv:latest"})
 
