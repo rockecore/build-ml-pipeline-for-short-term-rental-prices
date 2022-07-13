@@ -14,7 +14,9 @@ logger = logging.getLogger()
 
 def go(args):
     """
-    
+    mlflow run https://github.com/rockecore/build-ml-pipeline-for-short-term-rental-prices -v 1.0.1 -P hydra_options="etl.sample='sample2.csv'"
+    mlflow run https://github.com/rockecore/nd0821-c2-build-model-workflow-starter.git -v 1.0.1 -P hydra_options="etl.sample='sample2.csv'"
+    Like usual, the provided code doesn't work. 
     """
     
     run = wandb.init(job_type="basic_cleaning")
