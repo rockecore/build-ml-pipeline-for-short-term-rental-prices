@@ -35,6 +35,10 @@ def go(args):
     
     # save artifact
     logger.info("Saving artifact")
+    
+    # extra step to fix outliers
+    idx = artifact_df['longitude'].between(-74.25, -73.50) & artifact_df['latitude'].between(40.5, 41.2)
+    artifact_df = artifact_df[idx].copy()
     artifact_df.to_csv(args.output_artifact, index=False)
     
     # upload artifact to W&B
